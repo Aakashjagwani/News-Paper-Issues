@@ -1,0 +1,55 @@
+<h1>Angular 2 CRUD Operation</h1>
+<h3 *ngIf="newspaperIdToUpdate; else create">
+   Update Newspaper for Id: {{newspaperIdToUpdate}}
+</h3>
+<ng-template #create>
+   <h3> Create New Newspaper </h3>
+</ng-template>
+
+<div>
+ <form [formGroup]="newspaperForm" (ngSubmit)="onNewspaperFormSubmit()">
+  <table>
+    <tr><td>Enter Name</td><td><input formControlName="name">
+	       <label *ngIf="newspaperForm.get('name').invalid && processValidation" [ngClass] = "'error'"> Name is required. </label>
+    </td></tr>
+    <tr><td>Enter City</td><td><input formControlName="city">
+	       <label *ngIf="newspaperForm.get('city').invalid && processValidation" [ngClass] = "'error'"> City is required. </label>
+    </td></tr>
+    <tr><td colspan="2">
+	    <button *ngIf="!newspaperIdToUpdate">CREATE</button>
+	    <button *ngIf="newspaperIdToUpdate">UPDATE</button>
+	    <button (click)="backToCreateNewspaper()" *ngIf="newspaperIdToUpdate">Go Back</button>
+    </td></tr>
+  </table>
+ </form>
+ <br/>
+ <div *ngIf="statusCode; else processing">
+   <div *ngIf="statusCode === 201" [ngClass] = "'success'">
+	 Newspaper added successfully.
+   </div>
+   <div *ngIf="statusCode === 409" [ngClass] = "'success'">
+        Newspaper already exists.
+   </div>
+   <div *ngIf="statusCode === 200" [ngClass] = "'success'">
+        Newspaper updated successfully.
+   </div>
+   <div *ngIf="statusCode === 204" [ngClass] = "'success'">
+        Newspaper deleted successfully.
+   </div>
+   <div *ngIf="statusCode === 500" [ngClass] = "'error'">
+        Internal Server Error.
+   </div>
+ </div>
+ <ng-template #processing>
+	<img *ngIf="requestProcessing" src="K:/Projects/Angular/angular/src/assets/200.gif">
+</ng-template>
+</div>
+<h3>Newspaper Details</h3>
+<table>
+  <tr><th>Id</th> <th>Name</th><th>City</th><th></th><th></th></tr>
+  <tr *ngFor="let newspaper of allNewspapers" >
+  <td>{{newspaper.newspaperId}}</td> <td>{{newspaper.name}}</td> <td>{{newspaper.city}}</td>
+	<td><button type="button" (click)="loadNewspaperToEdit(newspaper.newspaperId)">Edit</button> </td>
+	<td><button type="button" (click)="deleteNewspaper(newspaper.newspaperId)">Delete</button></td>
+  </tr>
+</table>
