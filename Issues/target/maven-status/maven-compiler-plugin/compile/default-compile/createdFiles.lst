@@ -1,0 +1,7 @@
+newspaper\Issues\com\newsApp.class
+newspaper\Issues\com\Service\NewsPaperService.class
+newspaper\Issues\com\DAO\InewsDAO.class
+newspaper\Issues\com\Service\InewsPaperService.class
+newspaper\Issues\com\DAO\newsDAO.class
+newspaper\Issues\com\Controller\news_controller.class
+newspaper\Issues\com\VO\registration.class
